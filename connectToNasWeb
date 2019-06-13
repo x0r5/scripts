@@ -1,0 +1,19 @@
+set -e
+varDir='/media/web/'
+try=0
+num=1
+while [ ! -d $varDir ]
+do
+    if [ $try -lt $num ]
+    then
+        echo "Mounting directory is missing, creating"  $varDir
+        sudo mkdir $varDir
+        try=$((try+1))
+    else
+        echo "can't create directory at "  $varDir
+        exit 1
+    fi
+done
+echo sudo mount -t drvfs '//192.168.1.101/web'  $varDir
+sudo mount -t drvfs '//192.168.1.101/web'  $varDir
+echo "done"
